@@ -1,0 +1,57 @@
+{% extends 'base_account.html' %}
+{% block content %}
+	<script>
+		function validation()
+		{
+			var pass=document.getElementById("password")
+			var conf=document.getElementById("confpass")
+
+			if(pass.value.length==0)
+			{
+				alert("Enter the password");
+				pass.focus();
+				return false;
+			}
+			else if(conf.value.length==0)
+			{
+				alert("enter the password");
+				conf.focus();
+				return false;
+			}
+			else if(!conf.value.match(pass.value))
+			{
+				alert("Password doesnot match");
+				conf.focus();
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}
+	</script>
+		<div class="panel-body">
+              	<form accept-charset="UTF-8" role="form" method="post" action="{% url 'passaction' %}">
+		{% csrf_token %}
+		<div class="form-group">
+                    <div class="input-group input-group-lg">
+                      <span class="input-group-addon"><i class="fa fa-fw fa-envelope"></i></span>
+                      <input type="text" class="form-control" placeholder="newpassword"  name="newpassword" id="password"/>
+                    </div>
+		</div>
+		<div class="form-group">
+                    <div class="input-group input-group-lg">
+                      <span class="input-group-addon"><i class="fa fa-fw fa-envelope"></i></span>
+                      <input type="text" class="form-control" placeholder="confirmpassword"  name="confirmpassword" id="confirmpassword"/>
+                    </div>
+		</div>
+
+		<input class="btn btn-lg btn-primary btn-block" type="submit" value="confirm" onclick="return validation()">
+		<input type="hidden" value="{{data}}" name="username">
+		</div>
+		{% if msg %}
+			<script>
+				alert('{{msg}}')
+			</script>
+		{% endif %}
+{% endblock %}

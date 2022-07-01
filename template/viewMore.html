@@ -1,0 +1,16 @@
+<html>
+	<body>
+		<table>
+			<tr>
+				<th>Details</th>
+				<th>Stock</th>
+			</tr>
+			{% for v in data %}
+			<tr>
+				<td>{{v.details}}</td>
+				<td>{{v.stock}}</td>
+			</tr>
+			{% endfor %}
+		</table>
+	</body>
+</html>

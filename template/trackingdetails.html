@@ -1,0 +1,40 @@
+<html>
+	<script>
+		function validation()
+		{
+			var trkdts=document.getElementById("trackingdetails");
+	
+			if(trkdts.value.length==0)
+			{
+				alert("Enter the details");
+				trkdts.focus();
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}
+	</script>
+	<body>
+		<form method="post" action="{% url 'trackingaction' %}">
+		{% csrf_token %}
+		<table>
+			<tr>
+				<td>Tracking Details</td>
+				<td><input type="text" name="trackingdetails" id="trackingdetails"/></td> 
+			</tr>
+			<tr>
+				<td></td>
+				<td><input type="submit" value=submit onclick="return validation()"></td>
+				<input type="hidden" value="{{order_id}}" name="order_id">
+			</tr>
+		</table>
+		{% if msg %}
+		<script>
+			alert('{{msg}}')
+		</script>
+		{% endif %}
+		</form>
+	</body>
+</html>

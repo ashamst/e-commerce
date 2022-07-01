@@ -1,0 +1,89 @@
+{% extends 'base.html '%}
+{% block content %}
+
+  <div class="container" style="display:flex;justify-content:center;align-content:center;text-align:center"">
+
+      <div class="row" id="contact">
+
+      
+
+      
+          <h4 class="text-uppercase">
+              Search
+            </h4>
+
+
+            <div class="form">
+           
+            <form method="post" role="form" action="{% url 'priceaction' %}">
+           {% csrf_token %}
+               
+      </div>
+	<br>
+              <div class="form-group">
+                <select name="category" class="form-control" placeholder="Category" id="category">
+					
+					
+					<option value="">--category--</option>
+					{% for c in data %}
+					<option value="{{c.id}}">
+					{{c.name}}</option>
+					{% endfor %}
+					</select>
+</div>
+	<div class="form-group">
+                <input type="int" name="price" class="form-control" placeholder="Price" id="price">
+              
+              </div>
+	
+             
+        
+              <div class="text-center"><button type="submit" class="btn btn-lg btn-primary" onclick="return validation()">search</button></div>
+            </form>
+          </div>
+	
+    
+
+     
+
+     
+      
+      </div>
+
+ 
+
+    </div>
+	<script>
+		function validation()
+		{
+			var num=/^[0-9]+$/;
+
+			var ctg=document.getElementById("category");
+			var prc=document.getElementById("price");
+
+			if(ctg.value.length==0)
+			{
+				alert("Category field cannot be null");
+				ctg.focus();
+				return false;
+			}
+			
+			else if(prc.value.length==0)
+			{
+				alert("Enter the price");
+				prc.focus();
+				return false;
+			}
+			else if(!prc.value.match(num))
+			{
+				alert("Invalid");
+				prc.focus();
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}
+	</script>
+{% endblock %}

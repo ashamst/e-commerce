@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% block content %}
+	<script src ="/static/jquery.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			$("#q").change(function(){
+				quantity=parseInt($("#q").val());
+					price=parseInt($("#price").val());
+						$("#tp").val(quantity*price);
+			});					
+
+			});
+	</script>
+	
+<div class="container" style="display:flex;justify-content:center;">
+
+     	
+
+	{% for v in data %}
+	<div class="row">
+		<div class="col-sm-4">Name</div>
+		<div class="col-sm-9">{{v.name}}</div>
+	</div><br>
+	<div class="row">
+		<div class="col-sm-2">Image</div>
+		<div class="col-sm-4"><img src="{{v.file.url}}" height="100px" width="100px" alt="no pic"/></div>
+	</div><br>
+	<div class="row">
+		<div class="col-sm-2">Details</div>
+		<div class="col-sm-4">{{v.details}}</div>
+	</div><br>
+	<div class="row">
+		<div class="col-sm-2">Stock</div>
+		<div class="col-sm-4">{{v.stock}}</div>
+	</div><br>
+	<div class="row">
+		<div class="col-sm-2">Price</div>
+		<div class="col-sm-4">{{v.price}}</div>
+	</div><br>
+		<input type="hidden" value="{{v.price}}" id="price">
+	{% endfor %}
+
+
+</div>
+	<div class="container" style="display:flex;justify-content:center;align-content:center;text-align:center">
+
+      <div class="row" id="contact" style="width:40%">
+
+      
+
+      
+          <h4 class="text-uppercase">
+             ADD TO CART
+            </h4>
+
+
+            <div class="form">
+           
+            <form method="post" role="form" action="{% url 'cartAction' %}" enctype="multipart/form-data">
+		{% csrf_token %}
+              <div class="form-group">
+               <textarea name="shippingaddress" class="form-control" rows="4" placeholder="shipping address"cols="10"></textarea>
+              
+              </div>
+              <div class="form-group">
+                <input type="text" name="contactnumber"class="form-control" placeholder="contact number"/>
+              
+              </div>
+              <div class="form-group">
+                <input type="text" name="quantity" class="form-control" placeholder="quantity" id="q"/>
+               
+              </div>
+             
+	<div class="form-group">
+                <input type="text" name="totalprice" class="form-control" placeholder="total price" id="tp" readonly="true"/>
+              
+              </div>
+	
+             
+              
+              <div class="text-center"><button type="submit" class="btn btn-lg btn-primary" onclick="return validation()">Add</button></div>
+            </form>
+          </div>
+	
+    
+
+     
+
+     
+      
+      </div>
+
+ 
+
+    </div>
+		
+
+
+
+
+
+
+
+
+
+
+				{% if msg %}
+				<script>
+					alert('{{msg}}')
+				</script>
+				{% endif %}
+			
+{% endblock %}

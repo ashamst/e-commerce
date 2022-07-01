@@ -1,0 +1,105 @@
+<html>
+	<script>
+		function validation()
+		{
+
+			var num=/^[0-9]+$/;
+
+			var image.document.getElementById("img")
+			var name=document.getElementById("name")
+			var details=document.getElementById("dts")
+			var stock=document.getElementById("stk")
+			var price=document.getElementById("prc")
+			if(image.value.length==0)
+			{
+				alert("image field cannot be null");
+				image.focus();
+				return false;
+			}
+		else if(name.value.length==0)
+			{
+				alert("name field cannot be null");
+				name.focus();
+				return false;
+			}
+		else if(details.value.length==0)
+			{
+				alert("Enter the details");
+				details.focus();
+				return false;
+			}
+		
+
+		else if(stock.value.length==0)
+			{
+				alert("Enter the stock");
+				stock.focus();
+				return false;
+			}
+		else if(!stock.value.match(num))
+			{
+				alert("Invalid");
+				stock.focus();
+				return false;
+			}
+		else if(price.value.length==0)
+			{
+				alert("enter the price");
+				price.focus();
+				return false;
+			}
+		else if(!price.value.match(num))
+			{
+				alert("invalid");
+				price.focus();
+				return false;
+			}
+		else 
+			{
+				return true;
+			}
+		}
+	</script>
+	<body>
+		<form method="post" action="{% url 'updateAction' %}" enctype="multipart/form-data">
+		{% csrf_token %}
+		{% for v in data %}
+		<input type="hidden" name="uid" value="{{v.id}}"/>
+		<table>
+			<tr>
+				<td><img src="{{v.file.url}}" height="100px" width="100px" alt="no pic"/></td>
+			</tr>
+			<tr>
+				<td>Image</td>
+				<td><input type="file" name="image" value="{{v.file}}" id="img"/></td>
+			</tr>
+			<tr>
+				<td>Name</td>
+				<td><input type="text" name="name" value="{{v.name}}" id="name"/></td>
+			</tr>
+			<tr>
+				<td>Details</td>
+				<td><input type="text" name="details" value="{{v.details}}" id="dts"/></td>
+			</tr>
+			<tr>
+				<td>Stock</td>
+				<td><input type="int" name="stock" value="{{v.stock}}" id="stk"/></td>
+			</tr>
+			<tr>
+				<td>Price</td>
+				<td><input type="text" name="price" value="{{v.price}}" id="prc"/></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><input type="submit" value="update" onclick="return validation()"/></td>
+			</tr>
+		</table>
+		{% endfor %}
+		</form>
+		{% if msg %}
+		<script>
+			alert('{{msg}}');
+		</script>
+		{% endif %}
+	</body> 
+</html>

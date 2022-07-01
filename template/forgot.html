@@ -1,0 +1,40 @@
+{% extends 'base_account.html' %}
+{% block content %}
+	<script>
+	function validation()
+	{
+		var usr=document.getElementById("usrnme")
+	
+		if(usr.value.length==0)
+		{
+			alert("Username field cannot be null");
+			usr.focus();
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+	</script>
+
+	 <div class="panel-body">
+              <form accept-charset="UTF-8" role="form" method="get" action="{% url 'forgotaction' %}">
+		{% csrf_token %}
+		<div class="form-group">
+                    <div class="input-group input-group-lg">
+                      <span class="input-group-addon"><i class="fa fa-fw fa-envelope"></i></span>
+                      <input type="text" class="form-control" placeholder="username"  name="usernam" id="usrnme"/>
+                    </div>
+</div>
+		 <input class="btn btn-lg btn-primary btn-block" type="submit" value="submit" onclick="return validation()">
+		
+	
+	
+	{% if msg %}
+		<script>
+			alert('{{msg}}')
+		</script>
+	{% endif %}
+	</form>
+{% endblock %}

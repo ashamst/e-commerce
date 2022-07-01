@@ -1,0 +1,43 @@
+{% extends 'base.html '%}
+{% block content %}
+ 
+ <div class="showcase block block-border-bottom-grey">
+      <div class="container">
+        <h2 class="block-title">
+            Users
+          </h2>
+		<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Gender</th>
+				<th>Address</th>
+				<th>Dob</th>
+				<th>Country</th>
+				<th>Phone</th>
+				<th>Username</th>
+				<th>Status</th>
+				<th></th>
+				<th></th>
+			</tr>
+			</thead>
+			</tbody>
+			{% for v in data %}
+			<tr>
+				<td>{{v.name}}</td>
+				<td>{{v.gender}}</td>
+				<td>{{v.address}}</td>
+				<td>{{v.dob}}</td>
+				<td>{{v.country}}</td>
+				<td>{{v.phone}}</td>
+				<td>{{v.username}}</td>
+				<td>{{v.status}}</td>
+				<td><a href="{% url 'rejectUser' v.id %}">Reject</a></td>
+				<td><a href="{% url 'approveUser' v.id %}">Approve</a></td>
+			</tr>
+			{% endfor %}
+		</tbody>
+		</table>
+	</div>
+	</div>
+{% endblock %}

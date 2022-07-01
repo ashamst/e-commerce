@@ -1,0 +1,47 @@
+{% extends 'base.html '%}
+{% block content %}
+ 
+ <div class="showcase block block-border-bottom-grey">
+      <div class="container">
+        <h2 class="block-title">
+            Cart
+          </h2>
+        <form method = "post" action="{% url 'confirmorder' %}">
+		{% csrf_token %}
+		<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>Image</th>
+				<th>Name</th>
+				<th>Quantity</th>
+				<th>Total Price</th>
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for v in data %}
+			<tr>
+				<td><img src="{{v.product_id.file.url}}" height="100px" width="100px" alt="no pic"</td>
+				<td>{{v.product_id.name}}</td>
+				<td>{{v.quantity}}</td>
+				<td>{{v.totalprice}}</td>
+				<td><a href="{% url 'remove' v.id %}">Remove</a></td>
+				<td><input type="checkbox" name="cartitem" value="{{v.id}}"/></td>
+				
+			</tr>
+			{% endfor %}
+			
+		</tbody>
+		</table>
+			<input type="submit" style="width:100px" value="order" class="btn btn-lg btn-primary"/>
+		</form>
+            </div>
+</div>
+		
+		{% if msg %}
+		<script>
+			alert('{{msg}}');
+		</script>
+		{% endif %}
+	{% endblock %}

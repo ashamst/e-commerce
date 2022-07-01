@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+		
+		<form method="post" action="{% url 'search' %}">
+		{% csrf_token %}
+		<table>
+			<tr>
+				<td>search<td>
+				<td><input type="text" name="search"/></td>
+			</tr>
+			<tr>
+				<td><td>
+				<td><input type="submit" value="Search"/></td>
+			</tr>
+		</table>
+		</form>
+{% endblock %}

@@ -1,0 +1,145 @@
+{% extends 'base.html '%}
+{% block content %}
+
+  <div class="container" style="display:flex;justify-content:center;align-content:center;text-align:center"">
+
+      <div class="row" id="contact">
+
+      
+
+      
+          <h4 class="text-uppercase">
+              Add Product
+            </h4>
+
+
+            <div class="form">
+           
+            <form method="post" role="form" action="{% url 'productuploadAction' %}" enctype="multipart/form-data">
+		{% csrf_token %}
+              <div class="form-group">
+                <input type="file" name="file" class="form-control" placeholder="Image" id="img" />
+              
+              </div>
+              <div class="form-group">
+                <input type="text" name="name" class="form-control" placeholder="Name" id="name"/>
+              
+              </div>
+              <div class="form-group">
+                <input type="text" name="details" class="form-control" placeholder="details" id="dts" />
+               
+              </div>
+              <div class="form-group">
+                <select name="category" class="form-control" placeholder="Category" id="category">
+					<option value="">--category--</option>
+					{% for c in category %}
+					<option value="{{c.id}}">
+					{{c.name}}</option>
+					{% endfor %}
+					</select>
+	<div class="form-group">
+                <input type="int" name="stock" class="form-control" placeholder="Stock" id="stk">
+              
+              </div>
+	<div class="form-group">
+               <input type="text" name="price" class="form-control" placeholder="Price" id="prc">
+               
+              </div>
+             
+              </div>
+              <div class="text-center"><button type="submit" class="btn btn-lg btn-primary" onclick="return validation()">Add</button></div>
+            </form>
+          </div>
+	
+    
+
+     
+
+     
+      
+      </div>
+
+ 
+
+    </div>
+
+
+	
+	 
+	
+  
+
+
+	<script>
+		function validation()
+		{
+
+			var num=/^[0-9]+$/;
+
+			var image=document.getElementById("img")
+			var name=document.getElementById("name")
+			var details=document.getElementById("dts")
+			var category=document.getElementById("category")
+			var stock=document.getElementById("stk")
+			var price=document.getElementById("prc")
+		if(image.value.length==0)
+			{
+				alert("image field cannot be null");
+				image.focus();
+				return false;
+			}
+		else if(name.value.length==0)
+			{
+				alert("name field cannot be null");
+				name.focus();
+				return false;
+			}
+		else if(details.value.length==0)
+			{
+				alert("Enter the details");
+				details.focus();
+				return false;
+			}
+		else if(category.value.length==0)
+			{
+				alert("Category field cannoy be null");
+				categoty.focus();
+				return false;
+			}
+		else if(stock.value.length==0)
+			{
+				alert("Enter the stock");
+				stock.focus();
+				return false;
+			}
+		else if(!stock.value.match(num))
+			{
+				alert("Invalid");
+				stock.focus();
+				return false;
+			}
+		else if(price.value.length==0)
+			{
+				alert("enter the price");
+				price.focus()
+				return false;
+			}
+		else if(!price.value.match(num))
+			{
+				alert("invalid");
+				price.focus();
+				return false;
+			}
+		else 
+			{
+				return true;
+			}
+		}
+	</script>
+
+	{% if msg %}
+		<script>
+			alert('{{msg}}')
+		</script>
+	{% endif %}
+{% endblock %}
